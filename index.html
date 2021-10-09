@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Map</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        function initMap(){
+            var option = {
+                center : {
+                    lat:20.5937,
+                    lng:78.9629
+                },
+                zoom : 4
+            }
+            var map = new google.maps.Map(document.getElementById("map"),option)
+
+            var marks = [
+                {
+                    coords : {lat:55.7558,lng:37.6173},
+                    content : '<h1>Las Vegas</h1>'
+                },
+                {
+                    coords : {lat:51.5074,lng:0.1278},
+                    content : '<h1>London<h1>'
+                },
+                {
+                    coords : {lat:35.6762,lng:139.6503},
+                    content : '<h1Tokyo</h1>'
+                }
+            ]
+            for(var i=0; i<marks.length; i++){
+                addMarker(marks[i])
+            }
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                    position: props.coords,
+                    map:map
+                })
+            }
+
+            if(props.content){
+                var infowindow = new google.maps.InfoWindow({
+                    content: props.content
+                })
+
+                marks.addListener('click',function(){
+                    infowindow.open(map,marks)
+                })
+            }
+        }
+    </script>
+
+
+   <h1>Google Map 2.0</h1> 
+   <div id="map"></div>
+    
+   <script
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZaX0-t-BTXf7GlEzfzaLKIj1_Z3pM0ZY&callback=initMap"async></script>
+</body>
+</html>
